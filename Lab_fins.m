@@ -39,7 +39,7 @@ k1 = (26.3 + ((T_f1-300)/(350-300)*(30-26.3)))*10^-3;
 alpha1 = (22.5 + ((T_f1-300)/(350-300)*(29.9-22.5)))*10^-6;
 Pr1 = 0.707 + ((T_f1-300)/(350-300)*(0.700-0.707));
 %numero de Prandl para a temperatura da base
-Prs1 = 0.707 + ((T_s1+275.15-300)/(350-300)*(0.700-0.707));
+Prs1 = 0.707 + ((T_s1+273.15-300)/(350-300)*(0.700-0.707));
 
 Re_max1 = V_max1*D*10^-3/v1;
 if S_T/S_L<2
@@ -69,32 +69,24 @@ eta_exp_total = q1/(h_exp1*A_t*(T_s1-T_in1))
 x1 = [10, 36, 62];
 y1 = [0.731, 0.615, 0.538];
 
-%y1_x = @(x)(cosh(m1.*(L-x)) + h_teorico1./(m1.*k_al).*sinh(m1.*(L-x)))/(cosh(m1.*L) + h_teorico1./(m1.*k_al).*sinh(m1*L));
-y1_x = @(x)(cosh(m1.*(L-x)))/(cosh(m1.*L));
+y1_x = @(x)(cosh(m1.*(L-x)) + h_teorico1./(m1.*k_al).*sinh(m1.*(L-x)))/(cosh(m1.*L) + h_teorico1./(m1.*k_al).*sinh(m1*L));
+y1_x_exp = @(x)(cosh(m1.*(L-x)) + h_exp1./(m1.*k_al).*sinh(m1.*(L-x)))/(cosh(m1.*L) + h_exp1./(m1.*k_al).*sinh(m1*L));
 x = linspace(0, 0.067, 100);
 figure()
 plot(x*1000, y1_x(x))
+hold on
+plot(x*1000, y1_x_exp(x))
 hold on
 plot(x1, y1, '.', 'markersize', 10)
 ylim([0 1])
 ylabel("$\frac{\theta}{\theta_b}$", 'Interpreter','latex')
 xlabel("distance [mm]")
 
-%y1_x_exp = @(x)(cosh(m1.*(L-x)) + h_exp1./(m1.*k_al).*sinh(m1.*(L-x)))/(cosh(m1.*L) + h_exp1./(m1.*k_al).*sinh(m1*L));
-%x = linspace(0, 0.067, 100);
-%figure()
-%plot(x*1000, y1_x_exp(x))
-%hold on
-%plot(x1, y1, '.', 'markersize', 10)
-%ylim([0 1])
-%ylabel("$\frac{\theta}{\theta_b}$", 'Interpreter','latex')
-%xlabel("distance [mm]")
-
 
 %% 2º ensaio
 
 T_in2 = 23.5;
-T_out2 = (29.5 + 28.5 + 26-5)/3;
+T_out2 = (29.5 + 28.5 + 26.5)/3;
 V2 = 1.757;
 T_f2 = (T_in2 + T_out2)/2 + 273.15;
 T_s2 = 39.5;
@@ -138,24 +130,18 @@ eta_exp_total2 = q2/(h_exp2*A_t*(T_s2-T_in2))
 x2 = [10, 36, 62];
 y2 = [0.75, 0.625, 0.562];
 
-%y2_x = @(x)(cosh(m2.*(L-x)) + h_teorico2./(m2.*k_al).*sinh(m2.*(L-x)))/(cosh(m2.*L) + h_teorico2./(m2.*k_al).*sinh(m2*L));
-y2_x = @(x)(cosh(m2.*(L-x)))/(cosh(m2.*L));
+y2_x_exp = @(x)(cosh(m2.*(L-x)) + h_exp2./(m2.*k_al).*sinh(m2.*(L-x)))/(cosh(m2.*L) + h_exp2./(m2.*k_al).*sinh(m2*L));
+y2_x = @(x)(cosh(m2.*(L-x)) + h_teorico2./(m2.*k_al).*sinh(m2.*(L-x)))/(cosh(m2.*L) + h_teorico2./(m2.*k_al).*sinh(m2*L));
 x = linspace(0, 0.067, 100);
+
 figure()
 plot(x*1000, y2_x(x))
 hold on
+plot(x*1000, y2_x_exp(x))
+hold on
 plot(x2, y2, '.', 'markersize', 8)
 ylim([0 1])
+
 ylabel("$\frac{\theta}{\theta_b}$", 'Interpreter','latex')
 xlabel("distance [mm]")
-
-%y2_x_exp = @(x)(cosh(m2.*(L-x)) + h_exp2./(m2.*k_al).*sinh(m2.*(L-x)))/(cosh(m2.*L) + h_exp2./(m2.*k_al).*sinh(m2*L));
-%x = linspace(0, 0.067, 100);
-%figure()
-%plot(x*1000, y2_x_exp(x))
-%hold on
-%plot(x2, y2, '.', 'markersize', 8)
-%ylim([0 1])
-%ylabel("$\frac{\theta}{\theta_b}$", 'Interpreter','latex')
-%xlabel("distance [mm]")
-
+legend('theoretical temperature with h theo','theoretical temperature with h exp','experimental temperature','Location','southeast')
