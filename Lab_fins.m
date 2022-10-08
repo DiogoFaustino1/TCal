@@ -128,7 +128,7 @@ eta_teo_total2 = 1 - 17*A_f/A_t*(1-eta_teo2)
 eta_exp_total2 = q2/(h_exp2*A_t*(T_s2-T_in2))
 
 x2 = [10, 36, 62];
-y2 = [0.75, 0.625, 0.562];
+y2 = [0.75, 0.625, 0.5625];
 
 y2_x_exp = @(x)(cosh(m2.*(L-x)) + h_exp2./(m2.*k_al).*sinh(m2.*(L-x)))/(cosh(m2.*L) + h_exp2./(m2.*k_al).*sinh(m2*L));
 y2_x = @(x)(cosh(m2.*(L-x)) + h_teorico2./(m2.*k_al).*sinh(m2.*(L-x)))/(cosh(m2.*L) + h_teorico2./(m2.*k_al).*sinh(m2*L));
